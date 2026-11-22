@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scooter Harris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c1424;--panel:#111c33;--line:#22314f;--text:#e6edf7;--muted:#8d9bb5;
+  --accent:#5cc8ff;--warm:#ffb454;--ok:#7ee0a8;
+  --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:dark;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark}}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){--bg:#f2f5fa;--panel:#fff;--line:#d3dcea;--text:#10182b;--muted:#566280;--accent:#0a68b8;--warm:#a85a00;--ok:#14794a;color-scheme:light}
+}
+:root[data-theme="dark"]{--bg:#0c1424;--panel:#111c33;--line:#22314f;--text:#e6edf7;--muted:#8d9bb5;--accent:#5cc8ff;--warm:#ffb454;--ok:#7ee0a8;color-scheme:dark}
+:root[data-theme="light"]{--bg:#f2f5fa;--panel:#fff;--line:#d3dcea;--text:#10182b;--muted:#566280;--accent:#0a68b8;--warm:#a85a00;--ok:#14794a;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:48px 48px;background-position:-1px -1px}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,transparent 0,var(--bg) 75%);pointer-events:none}
+main{position:relative;max-width:860px;margin:0 auto;padding:clamp(32px,8vw,88px) 20px 48px}
+h1{font-size:clamp(2.6rem,9vw,5rem);line-height:1;margin:0 0 16px;letter-spacing:-.03em;font-weight:700}
+.lede{font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--muted);max-width:34em;margin:0 0 36px}
+.lede b{color:var(--text);font-weight:500}
+.term{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.92rem}
+.bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);color:var(--muted);font-size:.8rem}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.bar span{margin-left:auto}
+#out{padding:16px 16px 4px;min-height:260px;max-height:420px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+#out .cmd{color:var(--accent)}#out .k{color:var(--warm)}#out .ok{color:var(--ok)}#out .m{color:var(--muted)}
+#out a{color:var(--accent);text-underline-offset:3px}
+.in{display:flex;gap:8px;padding:8px 16px 14px;align-items:center}
+.in label{color:var(--ok)}
+#cmd{flex:1;min-width:0;background:none;border:0;color:var(--text);font:inherit;outline:none;caret-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 16px}
+.chips button{font:inherit;font-size:.82rem;color:var(--text);background:transparent;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+.chips button:hover{border-color:var(--accent);color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+footer{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+footer button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.caret{display:inline-block;width:.55em;height:1em;background:var(--accent);vertical-align:-.15em;animation:b 1s steps(2) infinite}
+@keyframes b{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.caret{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Hi, I’m Scooter Harris.</h1>
+  <p class="lede">Welcome to my corner of the internet. I build things, tinker with <b>tech</b>, and write down what I learn. Poke around the terminal below.</p>
+
+  <section class="term" aria-label="Interactive terminal">
+    <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>scooter@scooterharris.com</span></div>
+    <div id="out" role="log" aria-live="polite"></div>
+    <div class="chips" id="chips"></div>
+    <div class="in"><label for="cmd">$</label><input id="cmd" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="type help"></div>
+  </section>
+
+  <footer>
+    <span>scooterharris.com</span>
+    <span>uptime <span id="up">0s</span></span>
+    <button id="theme" type="button">toggle theme</button>
+  </footer>
+</main>
+<script>
+(function(){
+  var out=document.getElementById("out"),inp=document.getElementById("cmd"),chips=document.getElementById("chips");
+  var reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var cmds={
+    help:'Available commands:\n  <span class="k">about</span>     who I am\n  <span class="k">stack</span>     what I work with\n  <span class="k">projects</span>  things I’m building\n  <span class="k">contact</span>   get in touch\n  <span class="k">clear</span>     wipe the screen',
+    about:'Scooter Harris. Curious builder, lifelong tinkerer, based in Texas.\nI like clean systems, good tools, and shipping things that work.',
+    stack:'<span class="k">languages</span>  JavaScript, Python, Bash\n<span class="k">platforms</span>  Linux, the web, the cloud\n<span class="k">currently</span>  exploring AI-assisted development',
+    projects:'<span class="ok">●</span> scooterharris.com   this site, always in progress\n<span class="m">  more coming soon, check back.</span>',
+    contact:'<span class="k">web</span>     scooterharris.com\n<span class="k">github</span>  github.com/scooterharris\n<span class="k">email</span>   hello@scooterharris.com'
+  };
+  function add(h){var d=document.createElement("div");d.innerHTML=h;out.appendChild(d);out.scrollTop=out.scrollHeight}
+  function run(c){
+    c=c.trim().toLowerCase();if(!c)return;
+    add('<span class="ok">$</span> <span class="cmd">'+c.replace(/[<>&]/g,"")+'</span>');
+    if(c==="clear"){out.innerHTML="";return}
+    add(cmds[c]||'<span class="m">command not found: '+c.replace(/[<>&]/g,"")+'. Try help.</span>');
+    add("");
+  }
+  ["about","stack","projects","contact","help"].forEach(function(n){
+    var b=document.createElement("button");b.type="button";b.textContent=n;
+    b.onclick=function(){run(n);inp.focus({preventScroll:true})};chips.appendChild(b);
+  });
+  inp.addEventListener("keydown",function(e){if(e.key==="Enter"){run(inp.value);inp.value=""}});
+  // boot sequence
+  var line="whoami",i=0;
+  add('<span class="m">scooterharris.com booted. Type help to begin.</span>');
+  var s=document.createElement("div");s.innerHTML='<span class="ok">$</span> <span class="cmd" id="ty"></span><span class="caret"></span>';out.appendChild(s);
+  var ty=document.getElementById("ty");
+  function type(){
+    if(i<line.length){ty.textContent+=line[i++];setTimeout(type,reduce?0:90)}
+    else{s.remove();add('<span class="ok">$</span> <span class="cmd">whoami</span>');add("scooter, welcome in.");add("")}
+  }
+  setTimeout(type,reduce?0:500);
+  // uptime
+  var t0=Date.now(),up=document.getElementById("up");
+  setInterval(function(){var s=Math.floor((Date.now()-t0)/1000);up.textContent=s<60?s+"s":Math.floor(s/60)+"m "+s%60+"s"},1000);
+  // theme
+  var root=document.documentElement;
+  document.getElementById("theme").onclick=function(){
+    var dark=root.dataset.theme?root.dataset.theme==="dark":!window.matchMedia("(prefers-color-scheme:light)").matches;
+    root.dataset.theme=dark?"light":"dark";
+  };
+})();
+</script>
+</body>
+</html>
